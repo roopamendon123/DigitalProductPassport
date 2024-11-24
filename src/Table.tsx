@@ -17,8 +17,6 @@ export const Table = () => {
     CredentialSubjectVariant1[] | CredentialSubjectVariant2[]
   >([]);
 
-  const [isError, setIsError] = useState(false);
-
   const dataFormatter = (result: BatteryDetails[]) => {
     return result.map((entry) => {
       return entry.credentialSubject;
@@ -35,8 +33,8 @@ export const Table = () => {
         const formattedResult = dataFormatter(result);
         setData(formattedResult);
       } catch (error) {
-        setIsError(true);
-        console.error(isError); // console loging the error
+        console.error(error); // console loging the error
+        alert(error); // alerting error
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,7 +103,7 @@ export const Table = () => {
       <div>
         <h1> Digital Product Passport</h1>
       </div>
-      <MaterialReactTable table={table} />
+      {data && data.length > 0 && <MaterialReactTable table={table} />}
     </>
   );
 };
